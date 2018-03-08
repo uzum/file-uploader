@@ -29,6 +29,7 @@ app.post('/upload', function(req, res){
 
   // specify that we want to allow the user to upload multiple files in a single request
   form.multiples = true;
+  form.maxFileSize = 1024 * 1024 * (process.env.MAX_SIZE || 200);
 
   // store all uploads in the /uploads directory
   form.uploadDir = path.join(__dirname, '/uploads');
@@ -52,6 +53,10 @@ app.post('/upload', function(req, res){
   // parse the incoming request containing the form data
   form.parse(req);
 
+});
+
+app.use(function(request, response, next, error){
+  console.log(error);
 });
 
 var server = app.listen(process.env.PORT, function(){
