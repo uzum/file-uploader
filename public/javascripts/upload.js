@@ -1,3 +1,5 @@
+var ip = "localhost";
+
 $('.upload-btn').on('click', function (){
     $('#upload-input').click();
     $('.progress-bar').text('0%');
@@ -48,7 +50,12 @@ $('#upload-input').on('change', function(){
 
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
+              $('#uploaded-files').empty();
               $('.progress-bar').html('Done');
+              Array.prototype.forEach.call(files, function(file){
+                var url = "http://" + ip + ":3000/thinktech/" + file.name;
+                $('#uploaded-files').append($('<div><a href="' + url + '">' + url + '</a></div>'));
+              });
             }
 
           }
