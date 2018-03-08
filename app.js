@@ -18,7 +18,8 @@ app.use('/thinktech', express.static(path.join(__dirname, 'uploads')));
 app.get('/', function(req, res){
   res.render('index', {
     ip: process.env.IP,
-    port: process.env.PORT
+    port: process.env.PORT,
+    max_size: process.env.MAX_SIZE || 200
   });
 });
 

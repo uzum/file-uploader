@@ -33,7 +33,7 @@ $('#upload-input').on('change', function(){
       processData: false,
       contentType: false,
       success: function(data){
-          console.log('upload successful!\n' + data);
+        console.log('upload successful!\n' + data);
       },
       xhr: function() {
         // create an XMLHttpRequest
