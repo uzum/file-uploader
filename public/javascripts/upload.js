@@ -18,9 +18,14 @@ $('#upload-input').on('change', function(){
     // loop through all the selected files and add them to the formData object
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
+      var extension = '';
+      if (file.name.lastIndexOf('.') !== -1) {
+        extension = file.name.slice(file.name.lastIndexOf('.'));
+      }
+      file.filename = '' + (Date.now() + i) + extension;
 
       // add the files to formData object for the data payload
-      formData.append('uploads[]', file, file.name);
+      formData.append('uploads[]', file, file.filename);
     }
 
     $.ajax({
@@ -53,7 +58,7 @@ $('#upload-input').on('change', function(){
               $('#uploaded-files').empty();
               $('.progress-bar').html('Done');
               Array.prototype.forEach.call(files, function(file){
-                var url = "http://" + ip + ":3000/thinktech/" + file.name;
+                var url = "http://" + ip + ":3000/thinktech/" + file.filename;
                 $('#uploaded-files').append($('<div><a href="' + url + '">' + url + '</a></div>'));
               });
             }
