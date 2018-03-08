@@ -1,5 +1,3 @@
-var ip = "localhost";
-
 $('.upload-btn').on('click', function (){
     $('#upload-input').click();
     $('.progress-bar').text('0%');
@@ -58,7 +56,8 @@ $('#upload-input').on('change', function(){
               $('#uploaded-files').empty();
               $('.progress-bar').html('Done');
               Array.prototype.forEach.call(files, function(file){
-                var url = "http://" + ip + ":3000/thinktech/" + file.filename;
+                var host = PORT === 80 ? IP : IP + ":" + PORT;
+                var url = "http://" + host + "/thinktech/" + file.filename;
                 $('#uploaded-files').append($('<div><a href="' + url + '">' + url + '</a></div>'));
               });
             }

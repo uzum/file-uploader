@@ -4,11 +4,22 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 
+if (!process.env.PORT || !process.env.IP) {
+  console.log('IP and PORT should be provided as environment variables');
+  process.exit();
+}
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/thinktech', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'views/index.html'));
+  res.render('index', {
+    ip: process.env.IP,
+    port: process.env.PORT
+  });
 });
 
 app.post('/upload', function(req, res){
@@ -43,6 +54,6 @@ app.post('/upload', function(req, res){
 
 });
 
-var server = app.listen(3000, function(){
-  console.log('Server listening on port 3000');
+var server = app.listen(process.env.PORT, function(){
+  console.log('Server listening on port ' + process.env.PORT);
 });
